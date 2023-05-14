@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--ここからtwitter card-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="nkhr-c.com">
+    <meta name="twitter:site" content="@tt_cocoan">
+    <meta name="twitter:title" content="かじゅあるたいぴんぐ">
+    <meta name="twitter:description" content="好きな文章をさくっと好きなだけ打つタイピングゲーム">
+    <meta name="twitter:image" content="https://nkhr-c.com/casualtyping/twittercard.png">
+    <!--ここまでtwitter card-->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+    <title>かじゅあるたいぴんぐ</title>
+</head>
+
+<body>
+
+    <section class="hero is-small">
+        <div class="hero-body" style="background-color:aliceblue;">
+            <div class="container">
+                <h1 class="title is-2 has-text-centered">
+                    かじゅあるたいぴんぐ
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <div class="mt-4">
+            <textarea id="word" class="textarea is-large" placeholder="ここにテキストをにゅうりょくしてください。">にほんこくみんは、せいとうにせんきょされたこっかいにおけるだいひょうしゃをつうじてこうどうし、</textarea>
+        </div>
+
+        <div class="mt-4">
+            <input id="wordRoman" class="input is-large">
+        </div>
+
+
+        <div id="dataBox" class="box mt-4 has-text-centered">
+
+            <span id="timer" style="font-size:2em" class="has-text-danger">0.000</span>秒
+            <br>
+            <span id="count" style="font-size:1.5em">0</span>keys
+            <span id="kpm" style="font-size:1.5em">0</span>kpm
+
+            <br><br>
+
+            <button id="OK" class="button is-primary is-large mt-4">OK</button>
+            <button id="STOP" class="button is-danger is-large mt-4" disabled>STOP</button>
+
+        </div>
+
+        <canvas id="chart"></canvas>
+
+        <div id="container" class="tile is-parent container">
+
+            <div id="area" class="is-relative mx-auto p-4" style="border:2px solid;">
+                <span class="subtitle">【遊び方】</span><br><br>
+                ０．ひらがな・カタカナ・「、」「。」だけの文章を用意します。<br>
+                １．上のテキストエリアに文章を貼り付けます。<br>
+                ２．OKボタンかEnter/Spaceを押します。<br>
+                ３．最初のキーを押すと始まります。<br>
+                ４．打ち切るか、STOPボタンを押すかEscを押すと止まります。<br>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <footer class="footer py-6 has-text-centered">
+        中原ここあ(<a href="http://twitter.com/tt_cocoan">@tt_cocoan</a>)
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+
+    <script src="./js/main.js" type="module"></script>
+
+</body>
+
+</html>
