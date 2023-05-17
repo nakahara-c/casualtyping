@@ -15,6 +15,8 @@ let wordRoman = document.getElementById('wordRoman');
 const OKButton = document.getElementById('OK');
 const STOPButton = document.getElementById('STOP');
 
+let startTime;
+let intervalId;
 
 
 const timer = document.getElementById('timer');
@@ -32,6 +34,8 @@ let chart = null;
 
 let roman = '';
 let tmpNum = 0;
+
+let isPlaying = false;
 
 
 word.addEventListener('input', () => {
@@ -59,11 +63,12 @@ OKButton.addEventListener('click', () => {
 
 STOPButton.addEventListener('click', () => {
     window.removeEventListener('keydown', judgeKeys, false);
+    isPlaying = false;
     word.disabled = false;
     OKButton.disabled = false;
     STOPButton.disabled = true;
     wordRoman.disabled = false;
-    stopInterval();
+    clearInterval(intervalId);
     word.value = wordMem;
     parseWord();
 
@@ -85,13 +90,17 @@ function firstKeyPressed() {
     timer.textContent = "0.0";
     count.textContent = "0";
     kpm.textContent = "0";
-    timerArray.push(setInterval(startTimer, 100));
+
+    startTime = performance.now();
+    intervalId = setInterval(startTimer, 100);
+
     tmpNum = typeText.judgeAutomaton[0].length;
 }
 
 function startTimer() {
-    let currentTime = Number(timer.textContent) + 0.1;
-    currentTime = Number.parseFloat(currentTime).toFixed(1);
+
+    let currentTime = (performance.now() - startTime) / 1000;
+    currentTime = currentTime.toFixed(1);
     timer.textContent = currentTime;
     if (currentTime > 0.2) {
         kpmArray.push(Number(kpm.textContent));
@@ -99,11 +108,6 @@ function startTimer() {
     }
 }
 
-function stopInterval() {
-    if (timerArray.length > 0) {
-        clearInterval(timerArray.shift());
-    }
-}
 
 function judgeKeys(e) {
 
@@ -135,15 +139,14 @@ function judgeKeys(e) {
     }
 
     if (isOK) {
-        if (timerArray.length === 0) {
+        if (!isPlaying) {
+            isPlaying = true;
             firstKeyPressed();
         }
 
         //console.log(tmpNum);
         tmpNum -= 1;
         if (tmpNum >= 0) wordRoman.value = wordRoman.value.slice(1);
-
-
 
         if (isLast) {
             typeText.parsedSentence.shift();
@@ -169,7 +172,8 @@ function judgeKeys(e) {
 
 
 function typeFinish(isCompleted) {
-    stopInterval();
+    clearInterval(intervalId);
+    isPlaying = false;
     window.removeEventListener('keydown', judgeKeys, false);
     drawChart();
 
